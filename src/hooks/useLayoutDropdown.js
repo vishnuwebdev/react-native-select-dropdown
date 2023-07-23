@@ -48,13 +48,13 @@ export const useLayoutDropdown = (data, dropdownStyle, rowStyle, search) => {
         borderTopWidth: 0,
         overflow: 'hidden',
       },
-      ...dropdownStyle,
       ...{
         position: 'absolute',
         top: top,
         height: dropdownHEIGHT,
         width: dropdownWIDTH,
       },
+      ...dropdownStyle,
       ...(I18nManager.isRTL ? {right: dropdownStyle?.right || dropdownPX} : {left: dropdownStyle?.left || dropdownPX}),
     };
   }, [dropdownStyle, remainigHeightAvoidKeyboard, dropdownPX, dropdownPY, dropdownHEIGHT, dropdownWIDTH]);
