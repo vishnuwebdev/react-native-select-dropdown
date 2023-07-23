@@ -23,6 +23,10 @@ declare module 'react-native-select-dropdown' {
      * default selected item index
      */
     defaultValueByIndex?: number;
+     /**
+     * decrease top position for the dropdown
+     */
+    decreaseTopPosition?:number;
     /**
      * disable dropdown
      */

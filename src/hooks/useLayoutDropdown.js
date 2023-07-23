@@ -4,7 +4,7 @@ import {calculateDropdownHeight} from '../helpers/calculateDropdownHeight';
 import {useKeyboardRemainingScreenHeight} from './useKeyboardRemainingScreenHeight';
 const {height} = Dimensions.get('window');
 
-export const useLayoutDropdown = (data, dropdownStyle, rowStyle, search) => {
+export const useLayoutDropdown = (data, dropdownStyle, rowStyle, search, decreaseTopPosition) => {
   const [isVisible, setIsVisible] = useState(false); // dropdown visible ?
   const [buttonLayout, setButtonLayout] = useState(null);
   const [dropdownPX, setDropdownPX] = useState(0); // position x
@@ -38,11 +38,15 @@ export const useLayoutDropdown = (data, dropdownStyle, rowStyle, search) => {
     offset: rowStyle && rowStyle.height ? rowStyle.height * index : 50 * index,
   });
 
+  const getTopHeight = () => {
+    const topHeight =  remainigHeightAvoidKeyboard < dropdownPY + safeDropdownViewUnderKeyboard
+    ? remainigHeightAvoidKeyboard - safeDropdownViewUnderKeyboard
+    : dropdownPY;
+    return decreaseTopPosition ? topHeight - decreaseTopPosition : topHeight;
+  }
+
   const dropdownWindowStyle = useMemo(() => {
-    const top =
-      remainigHeightAvoidKeyboard < dropdownPY + safeDropdownViewUnderKeyboard
-        ? remainigHeightAvoidKeyboard - safeDropdownViewUnderKeyboard
-        : dropdownPY;
+    const top =getTopHeight();
     return {
       ...{
         borderTopWidth: 0,
